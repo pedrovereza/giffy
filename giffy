@@ -1,16 +1,29 @@
 #!/usr/bin/env bash
 
 giffy() {
-    createPallete="ffmpeg -i $1 -vf palettegen tmp_pallete.png"
+  input=$1
+  output=$2
 
-    echo "Creating pallete"
-    eval $createPallete
+   echo "Creating pallete"
+   _createPallete $input
 
-    convertToGif="ffmpeg -i $1 -s $3 -i tmp_pallete.png -r 10 $2"
+   echo "Creating gif..."
+   _convertToGif $input $output
 
-    echo "Creating gif..."
-    eval $convertToGif
+   echo "Cleaning up..."
+   _cleanUp
+}
 
-    echo "Cleaning up..."
-    eval "rm tmp_pallete.png"
+_createPallete() {
+   createPallete="ffmpeg -i $1 -vf palettegen tmp_pallete.png"
+    eval $createPallete > /dev/null
+}
+
+_convertToGif() {
+   convertToGif="ffmpeg -i $1 -i tmp_pallete.png -r 10 $2"
+    eval $convertToGif > /dev/null
+}
+
+_cleanUp() {
+   eval "rm tmp_pallete.png"
 }
