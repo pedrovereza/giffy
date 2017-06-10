@@ -8,10 +8,10 @@ giffy() {
   output=$2
 
    echo "Creating pallete"
-   _createPallete $input
+   _createPallete "$input"
 
    echo "Creating gif..."
-   _convertToGif $input $output
+   _convertToGif "$input" "$output"
 
    echo "Cleaning up..."
    _cleanUp
@@ -19,12 +19,12 @@ giffy() {
 
 _createPallete() {
    createPallete="ffmpeg -i $1 -vf palettegen tmp_pallete.png"
-    eval $createPallete > /dev/null
+    eval "$createPallete" > /dev/null
 }
 
 _convertToGif() {
    convertToGif="ffmpeg -i $1 -i tmp_pallete.png -r 10 $2"
-    eval $convertToGif > /dev/null
+    eval "$convertToGif" > /dev/null
 }
 
 _cleanUp() {
