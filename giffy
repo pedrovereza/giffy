@@ -27,3 +27,5 @@ _convertToGif() {
 _cleanUp() {
    eval "rm tmp_pallete.png"
 }
+
+giffy "$@"
