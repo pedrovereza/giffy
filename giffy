@@ -4,6 +4,11 @@ set -o nounset
 set -o errexit
 
 giffy() {
+  if [[ "$#" -ne 2 ]]; then
+    echo -e "Usage:\n$ ${FUNCNAME[0]} [input video] [output gif]"
+    exit 1
+  fi
+
   input=$1
   output=$2
 
